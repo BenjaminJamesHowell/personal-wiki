@@ -22,6 +22,7 @@ async fn main() -> Result<(), rocket::Error> {
             rocket::build()
                 .mount("/api", routes![index, pages])
                 .mount("/public", FileServer::from(relative!("./static")))
+                .mount("/assets", FileServer::from("./assets"))
                 .register("/public", catchers![not_found])
                 .launch()
                 .await?;

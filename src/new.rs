@@ -1,5 +1,6 @@
 use crate::args::{Args, Command, NewThing};
 use inquire::error::InquireResult;
+use rocket::tokio::fs::create_dir;
 use std::{
     env,
     fs::{create_dir, write},
@@ -68,6 +69,7 @@ fn create_files(questions: Questions) -> std::io::Result<()> {
         crate::template::config_json(&name),
     )?;
     create_dir(dir.clone() + "/pages")?;
+    create_dir(dir.clone() + "/assets")?;
     write(
         dir.clone() + "/pages/example_page",
         crate::template::example_page_md(),
