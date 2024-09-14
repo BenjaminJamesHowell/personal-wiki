@@ -1,9 +1,10 @@
 mod args;
 mod new;
+mod page;
 mod server;
 mod template;
 
-use crate::server::{index, not_found, pages};
+use crate::server::{category, index, not_found, pages};
 use rocket::fs::{relative, FileServer};
 
 #[macro_use]
@@ -20,7 +21,7 @@ async fn main() -> Result<(), rocket::Error> {
 
         args::Command::Serve => {
             rocket::build()
-                .mount("/api", routes![index, pages])
+                .mount("/api", routes![index, pages, category])
                 .mount("/public", FileServer::from(relative!("./static")))
                 .mount("/assets", FileServer::from("./assets"))
                 .register("/public", catchers![not_found])

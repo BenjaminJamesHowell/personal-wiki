@@ -1,6 +1,5 @@
 use crate::args::{Args, Command, NewThing};
 use inquire::error::InquireResult;
-use rocket::tokio::fs::create_dir;
 use std::{
     env,
     fs::{create_dir, write},

@@ -62,3 +62,13 @@ nav {
 nav:focus-within #search-results {
 	display: block;
 }
+
+#categories {
+	display: flex;
+}
+
+#categories a {
+	display: block;
+	margin: 0.5rem;
+}
+
