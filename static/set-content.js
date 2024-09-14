@@ -10,6 +10,7 @@ const elements = {
 	search: document.getElementById("search"),
 	searchResults: document.getElementById("search-results"),
 	categories: document.getElementById("categories"),
+	infoBox: document.getElementById("info-box"),
 };
 
 export function initSearchBox() {
@@ -75,17 +76,43 @@ function setPage(json) {
 	elements.title.innerText = formatTitle(json.title);
 
 	const md = markdownIt()
-		.use(markdownItFrontMatter, (fmStr) => {
-			const fmYaml = yaml.parse(fmStr);
-			const fm = {
-				categories: [],
-				...fmYaml,
-			};
-
-			elements.categories.innerHTML = fm.categories.map(category => {
-				return `<a href="/public/category/${category}">${formatTitle(category)}</a>`;
-			}).join("");
-		});
+		.use(markdownItFrontMatter, fm => setPageFrontMatter(json, fm));
 	elements.content.innerHTML = md.render(json.content);
+}
+
+function setPageFrontMatter(page, fmStr) {
+	const fmYaml = yaml.parse(fmStr);
+	const fm = {
+		categories: [],
+		infoBox: [],
+		...fmYaml,
+	};
+	console.log(fm);
+
+	// Categories
+	elements.categories.innerHTML = "";
+	for (const category of fm.categories) {
+		elements.categories.innerHTML += `<a href="/public/category/${category}">${formatTitle(category)}</a>`;
+	}
+
+	// Info Box
+	elements.infoBox.innerHTML = `<h2 class="title">${formatTitle(page.title)}</h2>`;
+	if (fm.infoBox.length > 0) {
+		elements.infoBox.style.display = "block";
+	}
+
+	for (const { name, value } of fm.infoBox) {
+		elements.infoBox.innerHTML += `
+<div class="property">
+	<div class="property-name">
+		${name}
+	</div>
+
+	<div class="property-value">
+		${value}
+	</div>
+</div>
+`;
+	}
 }
 

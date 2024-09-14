@@ -63,6 +63,41 @@ nav:focus-within #search-results {
 	display: block;
 }
 
+#main-body {
+	display: flex;
+}
+
+#content {
+	width: 100%;
+}
+
+#info-box {
+	border: 1px solid #CCC;
+	width: 20rem;
+	display: flex;
+	flex-direction: row;
+	display: none;
+}
+
+#info-box .title {
+	width: 100%;
+	text-align: center;
+}
+
+#info-box .property {
+	display: flex;
+	margin: 0 0.25rem;
+	margin-bottom: 0.5rem;
+}
+
+#info-box .property-name, #info-box .property-value {
+	width: 50%;
+}
+
+#info-box .property-name {
+	font-weight: bold;
+}
+
 #categories {
 	display: flex;
 }
