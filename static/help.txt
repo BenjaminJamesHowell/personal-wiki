@@ -1,0 +1,8 @@
+usage: personal-wiki <command> [<args>]
+
+new <thing>:
+	new wiki: create a new wiki
+	new page <name>: add a new blank page
+serve: start local server
+help: show help information
+version: show version information

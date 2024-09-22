@@ -6,6 +6,7 @@ mod template;
 
 use crate::server::{category, index, not_found, pages};
 use rocket::fs::{relative, FileServer};
+use std::fs::read_to_string;
 
 #[macro_use]
 extern crate rocket;
@@ -30,8 +31,16 @@ async fn main() -> Result<(), rocket::Error> {
             return Ok(());
         }
 
-        _ => {
-            panic!("Command not implemented");
+        args::Command::Help => {
+            let info = read_to_string(relative!("./static/help.txt"))
+                .expect("Cannot open help information.");
+            println!("{}", info);
+        }
+
+        args::Command::Version => {
+            let info = read_to_string(relative!("./static/version.txt"))
+                .expect("Cannot open version information.");
+            println!("{}", info);
         }
     };
 
