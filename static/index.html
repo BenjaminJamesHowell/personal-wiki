@@ -3,24 +3,23 @@
 	<head>
 		<title>Personal Wiki</title>
 
-		<script defer type="module" src="/public/index.js"></script>
-		<link rel="stylesheet" href="/public/styles.css" />
+		<script defer type="module" src="/static-assets/index.js"></script>
+		<link rel="stylesheet" href="/static-assets/styles.css" />
 	</head>
 
 	<body>
 		<nav>
-			<input id="search" placeholder="Search" />
-			<div id="search-results">
-			</div>
+			<input id="search-box" placeholder="Search" />
+			<div id="search-results"></div>
 		</nav>
 		<main>
-			<h1 id="title"></h1>
+			<h1 id="title">[TITLE]</h1>
 			<div id="main-body">
-				<div id="content"></div>
-				<div id="info-box"></div>
+				<div id="content">[CONTENT]</div>
+				[INFOBOX]
 			</div>
 
-			<div id="categories"></div>
+			<div id="categories">[CATEGORIES]</div>
 		</main>
 	</body>
 </html>

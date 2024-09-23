@@ -1,10 +1,11 @@
 mod args;
+mod html;
 mod new;
 mod page;
 mod server;
 mod template;
 
-use crate::server::{category, index, not_found, pages};
+use crate::server::{category, err_404, pages, search};
 use rocket::fs::{relative, FileServer};
 use std::fs::read_to_string;
 
@@ -22,10 +23,13 @@ async fn main() -> Result<(), rocket::Error> {
 
         args::Command::Serve => {
             rocket::build()
-                .mount("/api", routes![index, pages, category])
-                .mount("/public", FileServer::from(relative!("./static")))
+                .mount("/", routes![pages, category, search])
                 .mount("/assets", FileServer::from("./assets"))
-                .register("/public", catchers![not_found])
+                .mount(
+                    "/static-assets",
+                    FileServer::from(relative!("./static/assets/")),
+                )
+                .register("/", catchers![err_404])
                 .launch()
                 .await?;
             return Ok(());

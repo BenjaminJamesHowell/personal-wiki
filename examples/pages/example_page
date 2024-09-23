@@ -2,9 +2,9 @@
 categories:
     - examples
     - pages
-infoBox:
-    - { name: Property, value: Value }
-    - { name: "Other Property", value: "Other Value" }
+infobox:
+    - { name: "Property", value: "Value" },
+    - { name: "Other Property", value: "Other Value" },
 ---
 
 This is an example page.
