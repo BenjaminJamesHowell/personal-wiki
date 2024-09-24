@@ -69,6 +69,7 @@ fn create_files(questions: Questions) -> std::io::Result<()> {
     )?;
     create_dir(dir.clone() + "/pages")?;
     create_dir(dir.clone() + "/assets")?;
+    create_dir(dir.clone() + "/build")?;
     write(
         dir.clone() + "/pages/example_page",
         crate::template::example_page_md(),

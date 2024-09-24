@@ -1,11 +1,17 @@
-use crate::html;
+use crate::html::{self, PageHTML};
 use rocket::http::ContentType;
 
 #[get("/pages/<title>")]
-pub fn pages(title: &str) -> (ContentType, String) {
+pub fn pages(mut title: &str) -> (ContentType, String) {
+    if title.ends_with(".html") {
+        title = title.get(..(title.len() - 5)).unwrap();
+    }
+
     return (
         ContentType::HTML,
-        html::page(title).unwrap_or(html::err_404().expect("Cannot load 404 file")),
+        html::page(title)
+            .map(|PageHTML { output, fm: _ }| output)
+            .unwrap_or(html::err_404().expect("Cannot load 404 file")),
     );
 }
 
@@ -18,7 +24,11 @@ pub fn search() -> (ContentType, String) {
 }
 
 #[get("/categories/<title>")]
-pub fn category(title: &str) -> (ContentType, String) {
+pub fn category(mut title: &str) -> (ContentType, String) {
+    if title.ends_with(".html") {
+        title = title.get(..(title.len() - 5)).unwrap();
+    }
+
     return (
         ContentType::HTML,
         html::category(title).unwrap_or(html::err_404().expect("Cannot load 404 file")),

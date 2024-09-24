@@ -3,12 +3,12 @@ categories:
     - examples
     - pages
 infobox:
-    - { name: "Property", value: "Value" },
-    - { name: "Other Property", value: "Other Value" },
+    - { name: "Property", value: "Value" }
+    - { name: "Other Property", value: "Other Value" }
 ---
 
 This is an example page.
 
-[A Link](./other_page)
+[A Link](./other_page.html)
 
 A tiny image: ![Image](/assets/pattern.png)

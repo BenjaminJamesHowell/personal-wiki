@@ -1,9 +1,15 @@
 use rocket::fs::relative;
 use std::fs::{read_dir, read_to_string};
 
-use crate::page::{extract_front_matter, format_title, parse_md, InfoboxItem};
+use crate::page::{extract_front_matter, format_title, parse_md, InfoboxItem, PageFrontMatter};
 
-pub fn page(title: &str) -> Option<String> {
+#[derive(Debug)]
+pub struct PageHTML {
+    pub output: String,
+    pub fm: PageFrontMatter,
+}
+
+pub fn page(title: &str) -> Option<PageHTML> {
     let base = index()?;
     let raw_contents = read_to_string(format!("./pages/{}", title)).ok()?;
     let contents = parse_md(&raw_contents)?;
@@ -15,7 +21,7 @@ pub fn page(title: &str) -> Option<String> {
         .iter()
         .map(|category| {
             return format!(
-                r#"<a href="/categories/{}">{}</a>"#,
+                r#"<a href="/categories/{}.html">{}</a>"#,
                 category,
                 format_title(category),
             );
@@ -50,12 +56,13 @@ pub fn page(title: &str) -> Option<String> {
         infobox += "</div>";
     }
 
-    return Some(
-        base.replace("[CONTENT]", &contents)
-            .replace("[TITLE]", &display_title)
-            .replace("[CATEGORIES]", &categories)
-            .replace("[INFOBOX]", &infobox),
-    );
+    let output = base
+        .replace("[CONTENT]", &contents)
+        .replace("[TITLE]", &display_title)
+        .replace("[CATEGORIES]", &categories)
+        .replace("[INFOBOX]", &infobox);
+
+    return Some(PageHTML { output, fm });
 }
 
 pub fn search() -> Option<String> {
@@ -85,7 +92,7 @@ pub fn category(title: &str) -> Option<String> {
         }
 
         return Some(format!(
-            r#"<li><a href="/pages/{}">{}</a></li>"#,
+            r#"<li><a href="/pages/{}.html">{}</a></li>"#,
             file_name,
             format_title(file_name),
         ));

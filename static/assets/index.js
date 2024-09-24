@@ -27,7 +27,7 @@ async function main() {
 function setSearchResults(items, filter) {
 	elements.searchResults.innerHTML = items
 		.filter(item => item.includes(unformatTitle(filter)))
-		.map(title => `<a href="/pages/${title}">${formatTitle(title)}</a>`)
+		.map(title => `<a href="/pages/${title}.html">${formatTitle(title)}</a>`)
 		.slice(0, 5)
 		.join("");
 }

@@ -1,4 +1,5 @@
 mod args;
+mod build;
 mod html;
 mod new;
 mod page;
@@ -19,6 +20,10 @@ async fn main() -> Result<(), rocket::Error> {
     match args.command {
         args::Command::New(_) => {
             new::new(args);
+        }
+
+        args::Command::Build => {
+            build::build(args);
         }
 
         args::Command::Serve => {

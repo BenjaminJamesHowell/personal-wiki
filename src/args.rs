@@ -18,6 +18,7 @@ pub enum Command {
     Version,
     New(NewThing),
     Serve,
+    Build,
 }
 
 #[derive(Debug)]
@@ -152,6 +153,7 @@ fn parse_command(raw_args: &str) -> Option<(&str, Command)> {
             parse_version_command,
             parse_new_command,
             parse_serve_command,
+            parse_build_command,
         ],
         raw_args,
     )?;
@@ -171,6 +173,12 @@ fn parse_version_command(raw_args: &str) -> Option<(&str, Command)> {
     let (raw_args, _) = parse_word("version", raw_args)?;
 
     return Some((raw_args, Command::Version));
+}
+
+fn parse_build_command(raw_args: &str) -> Option<(&str, Command)> {
+    let (raw_args, _) = parse_word("build", raw_args)?;
+
+    return Some((raw_args, Command::Build));
 }
 
 fn parse_new_command(raw_args: &str) -> Option<(&str, Command)> {
