@@ -7,3 +7,10 @@ The homepage
 - [The example page](./example_page.html)
 - [The other page](./other_page.html)
 
+An inline mathematical expression: $\frac{x-1}{x+1}$
+
+A larger expression:
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+

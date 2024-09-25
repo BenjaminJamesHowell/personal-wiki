@@ -22,6 +22,8 @@ async function main() {
 		const filter = elements.searchBox.value;
 		setSearchResults(searchItems, filter);
 	});
+
+	formatMath();
 }
 
 function setSearchResults(items, filter) {
@@ -30,6 +32,19 @@ function setSearchResults(items, filter) {
 		.map(title => `<a href="/pages/${title}.html">${formatTitle(title)}</a>`)
 		.slice(0, 5)
 		.join("");
+}
+
+function formatMath() {
+	if (!window.MathJax) {
+		window.MathJax = {
+			tex: {
+				inlineMath: { '[+]': [['$', '$']] }
+			}
+		};
+	}
+	var script = document.createElement('script');
+	script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+	document.head.appendChild(script);
 }
 
 main();
