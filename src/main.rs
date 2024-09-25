@@ -8,6 +8,7 @@ mod template;
 
 use crate::server::{category, err_404, pages, search};
 use rocket::fs::{relative, FileServer};
+use server::{redir_to_home_from_pages, redir_to_home_from_root};
 use std::fs::read_to_string;
 
 #[macro_use]
@@ -28,7 +29,16 @@ async fn main() -> Result<(), rocket::Error> {
 
         args::Command::Serve => {
             rocket::build()
-                .mount("/", routes![pages, category, search])
+                .mount(
+                    "/",
+                    routes![
+                        pages,
+                        category,
+                        search,
+                        redir_to_home_from_root,
+                        redir_to_home_from_pages
+                    ],
+                )
                 .mount("/assets", FileServer::from("./assets"))
                 .mount(
                     "/static-assets",

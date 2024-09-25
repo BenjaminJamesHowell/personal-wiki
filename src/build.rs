@@ -66,4 +66,10 @@ pub fn build(args: Args) {
 
     let search_output = html::search().expect("Cannot get search results");
     write("./build/search", search_output).expect("Cannot write search results file");
+
+    write(
+        "./build/index.html",
+        html::home_redirect().expect("Cannot build home redirect"),
+    )
+    .expect("Cannot build home redirect");
 }

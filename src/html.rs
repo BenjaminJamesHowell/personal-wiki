@@ -122,3 +122,7 @@ fn index() -> Option<String> {
 pub fn err_404() -> Option<String> {
     return read_to_string(relative!("./static/404")).ok();
 }
+
+pub fn home_redirect() -> Option<String> {
+    return read_to_string(relative!("./static/redirect-to-home.html")).ok();
+}
